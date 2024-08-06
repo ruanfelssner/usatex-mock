@@ -1,0 +1,49 @@
+{
+  "name": "usatex",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint": "yarn lint:js",
+    "lintfix": "yarn lint:js --fix",
+    "build-android-debug": "npm run build && npx cap copy android && npx cap open android && copy android/app/build/outputs/apk/debug/app-debug.apk .",
+    "build-android-release": "npm run build && npx cap copy android && npx cap open android --release && copy android/app/release/app-release.apk .",
+    "ionic:build": "npm run build",
+    "ionic:serve": "npm run start"
+  },
+  "dependencies": {
+    "@ballcat/vue-cropper": "^1.0.6",
+    "@capacitor/android": "^5.6.0",
+    "@capacitor/camera": "^5.0.8",
+    "@capacitor/cli": "^5.6.0",
+    "@capacitor/core": "^5.6.0",
+    "@nuxtjs/pwa": "^3.3.5",
+    "@nuxtjs/toast": "^3.3.1",
+    "bootstrap": "^4.6.2",
+    "bootstrap-vue": "^2.22.0",
+    "core-js": "^3.25.3",
+    "nuxt": "^2.15.8",
+    "vue": "^2.7.10",
+    "vue-cropperjs": "4.2.0",
+    "vue-server-renderer": "^2.7.10",
+    "node-sass": "^6.0.1",
+    "vue-template-compiler": "^2.7.10"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.19.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@nuxtjs/eslint-config": "^11.0.0",
+    "@nuxtjs/eslint-module": "^3.1.0",
+    "@nuxtjs/fontawesome": "^1.1.2",
+    "eslint": "^8.24.0",
+    "eslint-plugin-nuxt": "^4.0.0",
+    "eslint-plugin-vue": "^9.5.1",
+    "sass": "^1.69.5",
+    "sass-loader": "^10.1.1"
+  }
+}
