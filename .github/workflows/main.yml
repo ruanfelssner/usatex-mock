@@ -30,9 +30,9 @@ jobs:
 
     - name: Print FTP secrets
       run: |
-        echo "FTP_HOST: $(echo ${{ secrets.FTP_HOST }} | sha256sum)"
-        echo "FTP_USERNAME: $(echo ${{ secrets.FTP_USERNAME }} | sha256sum)"
-        echo "FTP_PASSWORD: $(echo ${{ secrets.FTP_PASSWORD }} | sha256sum)"
+        echo "FTP_HOST: $(echo ${{ secrets.FTP_HOST }})"
+        echo "FTP_USERNAME: $(echo ${{ secrets.FTP_USERNAME }})"
+        echo "FTP_PASSWORD: $(echo ${{ secrets.FTP_PASSWORD }})"
 
     - name: Deploy to FTP server
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
