@@ -28,11 +28,15 @@ jobs:
     - name: Build Nuxt.js application
       run: pnpm run generate
 
-    - name: Encode and print FTP secrets
+    - name: Debug FTP secrets
       run: |
-        echo "FTP_HOST: $(echo -n "${{ secrets.FTP_HOST }}" | base64)"
-        echo "FTP_USERNAME: $(echo -n "${{ secrets.FTP_USERNAME }}" | base64)"
-        echo "FTP_PASSWORD: $(echo -n "${{ secrets.FTP_PASSWORD }}" | base64)"
+        FTP_HOST="${{ secrets.FTP_HOST }}"
+        FTP_USERNAME="${{ secrets.FTP_USERNAME }}"
+        FTP_PASSWORD="${{ secrets.FTP_PASSWORD }}"
+
+        echo "FTP_HOST: $FTP_HOST"
+        echo "FTP_USERNAME: $FTP_USERNAME"
+        echo "FTP_PASSWORD: $FTP_PASSWORD"
 
     - name: Deploy to FTP server
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
