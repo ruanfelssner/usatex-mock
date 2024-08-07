@@ -1,0 +1,38 @@
+name: Deploy via FTP
+
+on:
+  push:
+    branches:
+      - main  # ou o branch que você deseja usar para o deploy
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: Prod
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22.0.0'  # ou a versão do Node.js que você está usando
+
+    - name: Install pnpm
+      run: npm install -g pnpm
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Build Nuxt.js application
+      run: pnpm run generate
+
+    - name: Deploy to FTP server
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:        
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: .output/public/
+        server-dir	: /public_html/usatex/
