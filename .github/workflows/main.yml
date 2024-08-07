@@ -28,19 +28,6 @@ jobs:
     - name: Build Nuxt.js application
       run: pnpm run generate
 
-    - name: Write secrets to file
-      run: |
-        echo "${{ secrets.FTP_HOST }}" > ftp_host.txt
-        echo "${{ secrets.FTP_USERNAME }}" > ftp_username.txt
-        echo "${{ secrets.FTP_PASSWORD }}" > ftp_password.txt
-
-    - name: List files to check secrets
-      run: |
-        ls -l
-        cat ftp_host.txt
-        cat ftp_username.txt
-        cat ftp_password.txt
-
     - name: Deploy to FTP server
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:        
