@@ -3,7 +3,7 @@ import json
 
 # Lista para armazenar os nomes das imagens
 nomes_das_imagens = []
-caminho_da_pasta = './assets/thumb'
+caminho_da_pasta = './static/assets/thumb'
 
 # Percorre os arquivos na pasta
 for nome_do_arquivo in os.listdir(caminho_da_pasta):
