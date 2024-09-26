@@ -100,6 +100,7 @@ export default {
       backgroundSize: 50,
       activeList: true,
       listMockups: [
+        { name: 'wshoe', img: '/assets/mockups/wshoe.png' },
         { name: 'Tenis 3', img: '/assets/mockups/tenis3.png' },
         { name: 'Tenis 4', img: '/assets/mockups/tenis4.png' },
         { name: 'Tenis 5', img: '/assets/mockups/tenis5.png' },
@@ -117,7 +118,6 @@ export default {
         { name: 'top-tenis', img: '/assets/mockups/top-tenis.png' },
         { name: 'top-tenis-2', img: '/assets/mockups/top-tenis-2.png' },
         { name: 'trainer-mask', img: '/assets/mockups/trainer-mask.png' },
-        { name: 'wshoe', img: '/assets/mockups/wshoe.png' },
         { name: 'tenis2', img: '/assets/mockups/tenis2.png' },
         // { name: 'tenis-infantil', img: '/assets/mockups/tenis-infantil.png' },
         { name: 'tenis-nike-white', img: '/assets/mockups/nike-white.png' },
@@ -140,12 +140,14 @@ export default {
         { name: 'swinsuit', img: '/assets/mockups/swinsuit.png' },
         { name: 'shirt-mask', img: '/assets/mockups/shirt-mask.png' },
         { name: 'scarf', img: '/assets/mockups/scarf.png' },
+        { name: 'peep-toe', img: '/assets/mockups/peep-toe.png' },
+        { name: 'Running-Shoes', img: '/assets/mockups/Running-Shoes.png' },
         { name: 'wallpaper-mask', img: '/assets/mockups/wallpaper-mask.png' },
         // { name: 'mochila', img: '/assets/mockups/mochila.png' },
         // { name: 'mochila02', img: '/assets/mockups/mochila02.png' },
         // { name: 'parede', img: '/assets/mockups/parede.png' },
-        { name: 'peep-toe', img: '/assets/mockups/peep-toe.png' },
-        { name: 'Running-Shoes', img: '/assets/mockups/Running-Shoes.png' }
+        { name: 'Cadeira', img: '/assets/mockups/cadeira.png' },
+        { name: 'Cadeira 2', img: '/assets/mockups/cadeira2.png' }
         // { name: 'Saia', img: '/assets/mockups/Saia.png' },
         // { name: 'Square-Pillow', img: '/assets/mockups/Square-Pillow.png' },
         // { name: 'SquarePillow', img: '/assets/mockups/SquarePillow.png' },
