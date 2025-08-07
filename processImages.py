@@ -22,18 +22,18 @@ def process_images(input_folder):
             # Abrir a imagem
             with Image.open(file_path) as img:
                 # Obter o nome base sem a extensão
-                base_name = file_name.split("_")[0]
+                base_name = file_name.split("_")[1]
 
                 # Criar a miniatura (exatamente 128x128)
                 thumb_image = img.resize(thumb_size)  # Redimensionar para tamanho fixo
-                thumb_path = os.path.join(thumb_folder, f"{base_name}.jpg")
+                thumb_path = os.path.join(thumb_folder, f"{base_name}")
                 thumb_image.save(thumb_path, "JPEG", quality=85)
                 print(f"Miniatura salva: {thumb_path}")
 
                 # Criar o modelo redimensionado (mantendo proporção)
                 modelos_image = img.copy()
                 modelos_image.thumbnail(modelos_size)
-                modelos_path = os.path.join(modelos_folder, f"{base_name}.jpg")
+                modelos_path = os.path.join(modelos_folder, f"{base_name}")
                 modelos_image.save(modelos_path, "JPEG", quality=85)
                 print(f"Imagem redimensionada salva: {modelos_path}")
 

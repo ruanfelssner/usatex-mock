@@ -1,0 +1,208 @@
+{
+  "mockups": [
+    {
+      "name": "allstar",
+      "img": "/assets/mockups/allstar.png"
+    },
+    {
+      "name": "Bolsa",
+      "img": "/assets/mockups/Bolsa.png"
+    },
+    {
+      "name": "cadeira2",
+      "img": "/assets/mockups/cadeira2.png"
+    },
+    {
+      "name": "Chuteira",
+      "img": "/assets/mockups/Chuteira.png"
+    },
+    {
+      "name": "cushion",
+      "img": "/assets/mockups/cushion.png"
+    },
+    {
+      "name": "iPhone-mask",
+      "img": "/assets/mockups/iPhone-mask.png"
+    },
+    {
+      "name": "kaftan",
+      "img": "/assets/mockups/kaftan.png"
+    },
+    {
+      "name": "kids-t-mask",
+      "img": "/assets/mockups/kids-t-mask.png"
+    },
+    {
+      "name": "leggings-mask",
+      "img": "/assets/mockups/leggings-mask.png"
+    },
+    {
+      "name": "leggings",
+      "img": "/assets/mockups/leggings.png"
+    },
+    {
+      "name": "mochila",
+      "img": "/assets/mockups/mochila.png"
+    },
+    {
+      "name": "mochila02",
+      "img": "/assets/mockups/mochila02.png"
+    },
+    {
+      "name": "nike-white",
+      "img": "/assets/mockups/nike-white.png"
+    },
+    {
+      "name": "Pantufa",
+      "img": "/assets/mockups/Pantufa.png"
+    },
+    {
+      "name": "Papete infantil",
+      "img": "/assets/mockups/Papete infantil.png"
+    },
+    {
+      "name": "parede",
+      "img": "/assets/mockups/parede.png"
+    },
+    {
+      "name": "peep-toe",
+      "img": "/assets/mockups/peep-toe.png"
+    },
+    {
+      "name": "Running-Shoes",
+      "img": "/assets/mockups/Running-Shoes.png"
+    },
+    {
+      "name": "Saia",
+      "img": "/assets/mockups/Saia.png"
+    },
+    {
+      "name": "Salto Alto",
+      "img": "/assets/mockups/Salto Alto.png"
+    },
+    {
+      "name": "Sandalia",
+      "img": "/assets/mockups/Sandalia.png"
+    },
+    {
+      "name": "sapatilha",
+      "img": "/assets/mockups/sapatilha.png"
+    },
+    {
+      "name": "scarf",
+      "img": "/assets/mockups/scarf.png"
+    },
+    {
+      "name": "shirt-mask",
+      "img": "/assets/mockups/shirt-mask.png"
+    },
+    {
+      "name": "shoes",
+      "img": "/assets/mockups/shoes.png"
+    },
+    {
+      "name": "skid-grip",
+      "img": "/assets/mockups/skid-grip.png"
+    },
+    {
+      "name": "Slide",
+      "img": "/assets/mockups/Slide.png"
+    },
+    {
+      "name": "Slip on 1",
+      "img": "/assets/mockups/Slip on 1.png"
+    },
+    {
+      "name": "Slip on 2",
+      "img": "/assets/mockups/Slip on 2.png"
+    },
+    {
+      "name": "slip-on",
+      "img": "/assets/mockups/slip-on.png"
+    },
+    {
+      "name": "Sneaker",
+      "img": "/assets/mockups/Sneaker.png"
+    },
+    {
+      "name": "sofa",
+      "img": "/assets/mockups/sofa.png"
+    },
+    {
+      "name": "Square-Pillow",
+      "img": "/assets/mockups/Square-Pillow.png"
+    },
+    {
+      "name": "SquarePillow",
+      "img": "/assets/mockups/SquarePillow.png"
+    },
+    {
+      "name": "Tenis 2",
+      "img": "/assets/mockups/Tenis 2.png"
+    },
+    {
+      "name": "Tenis Infantil 1",
+      "img": "/assets/mockups/Tenis Infantil 1.png"
+    },
+    {
+      "name": "Tenis Infantil 2",
+      "img": "/assets/mockups/Tenis Infantil 2.png"
+    },
+    {
+      "name": "Tenis Infantil 3",
+      "img": "/assets/mockups/Tenis Infantil 3.png"
+    },
+    {
+      "name": "tenis-bibi-2",
+      "img": "/assets/mockups/tenis-bibi-2.png"
+    },
+    {
+      "name": "tenis-bibi",
+      "img": "/assets/mockups/tenis-bibi.png"
+    },
+    {
+      "name": "tenis-infantil",
+      "img": "/assets/mockups/tenis-infantil.png"
+    },
+    {
+      "name": "Tenis",
+      "img": "/assets/mockups/Tenis.png"
+    },
+    {
+      "name": "tenis2",
+      "img": "/assets/mockups/tenis2.png"
+    },
+    {
+      "name": "tenis4",
+      "img": "/assets/mockups/tenis4.png"
+    },
+    {
+      "name": "toalha",
+      "img": "/assets/mockups/toalha.png"
+    },
+    {
+      "name": "top-tenis-2",
+      "img": "/assets/mockups/top-tenis-2.png"
+    },
+    {
+      "name": "top-tenis",
+      "img": "/assets/mockups/top-tenis.png"
+    },
+    {
+      "name": "trainer-mask",
+      "img": "/assets/mockups/trainer-mask.png"
+    },
+    {
+      "name": "wallpaper-mask",
+      "img": "/assets/mockups/wallpaper-mask.png"
+    },
+    {
+      "name": "wshoe-2",
+      "img": "/assets/mockups/wshoe-2.png"
+    },
+    {
+      "name": "wshoe",
+      "img": "/assets/mockups/wshoe.png"
+    }
+  ]
+}
