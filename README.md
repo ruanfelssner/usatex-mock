@@ -1,6 +1,90 @@
-# usatex
+# UsaTex - Sistema de Atualização
 
-## Build Setup
+Sistema unificado para processamento de imagens e metadados do projeto UsaTex.
+
+## 🚀 Uso Rápido
+
+### Processamento Completo (Recomendado)
+
+```bash
+python update.py
+```
+
+### Menu Interativo (Windows)
+
+```cmd
+processar_imagens.bat
+```
+
+## 📋 Comandos Disponíveis
+
+```bash
+python update.py                 # Processamento completo
+python update.py --preview       # Ver mudanças antes de executar
+python update.py --clean         # Apenas limpeza de pastas
+python update.py --validate      # Apenas validação de imagens
+python update.py --duplicates    # Buscar duplicatas
+python update.py --mockups       # Apenas atualizar mockups
+python update.py --help          # Ajuda completa
+```
+
+## 📁 Estrutura
+
+```
+projeto/
+├── base-images/              # 📂 Imagens originais
+├── static/assets/
+│   ├── thumb/               # 📂 Thumbnails 128x128 (gerado)
+│   ├── modelos/             # 📂 Imagens redimensionadas (gerado)
+│   └── mockups/             # 📂 Mockups
+├── update.py                # 🎯 Script principal
+├── processar_imagens.bat    # 📝 Menu interativo
+├── listaImages.json         # 📄 Metadados (gerado)
+├── listaMockups.json        # 📄 Mockups (gerado)
+└── utils/                   # 📂 Scripts antigos (backup)
+```
+
+## 🔧 Funcionalidades
+
+### ✅ Padronização Automática
+
+- `UC_202520 v1.jpg` → `UC_202520-v1.jpg`
+- `UT4606 (2).jpg` → `UT4606-2.jpg`
+- `UT4603V2.jpg` → `UT4603-V2.jpg`
+
+### ✅ Processamento de Imagens
+
+- **Thumbnails**: 128x128px (centralizado)
+- **Modelos**: Até 1182x1182px (mantém proporção)
+- **Qualidade**: JPEG otimizado (85%/90%)
+
+### ✅ Validação e Análise
+
+- Verifica integridade das imagens
+- Detecta duplicatas/variações
+- Preview antes da execução
+
+### ✅ Geração de Metadados
+
+- `listaImages.json` - Lista de todas as imagens
+- `listaMockups.json` - Lista de mockups disponíveis
+
+## 📦 Pré-requisitos
+
+```bash
+pip install pillow
+```
+
+## 🔄 Fluxo de Trabalho
+
+1. **Adicione imagens** na pasta `base-images/`
+2. **Execute**: `python update.py`
+3. **Verifique** as pastas `thumb/` e `modelos/`
+4. **Teste** a aplicação Vue.js
+
+---
+
+## Build Setup da Aplicação Vue.js
 
 ```bash
 # install dependencies
@@ -40,7 +124,6 @@ More information about the usage of this directory in [the documentation](https:
 Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
 
 ### `pages`
 
