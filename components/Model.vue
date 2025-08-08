@@ -170,7 +170,7 @@
         <div class="xl:col-span-3 bg-white rounded-lg shadow-md p-4 flex flex-col">
           <h3 class="text-lg font-semibold text-gray-700 mb-3 text-center">Preview</h3>
 
-          <div class="flex justify-center mb-4 flex-1">
+          <div class="flex justify-center mb-4">
             <div
               class="relative bg-gray-100 rounded-lg overflow-hidden max-w-2xl w-full flex items-center justify-center"
               id="main-background"
@@ -186,7 +186,7 @@
           </div>
 
           <!-- Controle de tamanho -->
-          <div class="mx-auto max-w-lg mt-auto">
+          <div class="mx-auto max-w-lg">
             <label class="block text-sm font-medium text-gray-600 mb-2 text-center">
               Tamanho: {{ backgroundSize }}%
             </label>
@@ -414,6 +414,9 @@ export default {
       this.mockupSelected = this.listMockups[0]
       this.backgroundSelected = this.backgroundList[0]
       this.ImageSelectCropped = this.backgroundSelected.texture
+
+      // Aplicar o background default automaticamente
+      this.croppedImage = this.backgroundSelected.texture
     }
   },
   methods: {
