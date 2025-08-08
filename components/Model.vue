@@ -152,7 +152,7 @@
                 v-for="(item, id) of backgroundList"
                 :key="'bg-' + id"
                 :class="[
-                  'aspect-square rounded-md overflow-hidden border-2 transition-all cursor-pointer',
+                  'aspect-square min-h-16 w-full rounded-md overflow-hidden border-2 transition-all cursor-pointer',
                   backgroundSelected?.name === item.name
                     ? 'border-green-400'
                     : 'border-gray-200 hover:border-green-300'
@@ -315,6 +315,16 @@ export default {
 /* Aspect ratio utility */
 .aspect-square {
   aspect-ratio: 1 / 1;
+  min-height: 4rem; /* Reduzido de 6rem para 4rem (64px) */
+}
+
+/* iOS specific fixes */
+@supports (-webkit-touch-callout: none) {
+  .aspect-square {
+    height: auto !important;
+    min-height: 4rem !important;
+    width: 100% !important;
+  }
 }
 
 /* Background utilities */
