@@ -16,15 +16,16 @@
 
     <!-- Main content -->
     <main class="container mx-auto px-4 py-4 max-w-7xl">
-
       <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
         <div class="bg-white rounded-lg shadow-md p-4 col-span-2">
-          <h3 class="text-lg font-semibold text-gray-700 mb-3 text-center">Preview</h3>
+          <h3 class="text-lg font-semibold text-gray-700 mb-3 text-center">
+            Preview
+          </h3>
 
           <div class="flex justify-center mb-4">
             <div
-              class="relative bg-gray-100 rounded-lg overflow-hidden max-w-sm w-full"
               id="main-background"
+              class="relative bg-gray-100 rounded-lg overflow-hidden max-w-sm w-full"
               :style="'background-image: url('+croppedImage+'); background-size: '+backgroundSize+'% auto; background-position: center;'"
             >
               <div class="flex items-center justify-center">
@@ -68,7 +69,9 @@
             v-model="mockupSelected"
             class="w-full p-2 border border-gray-300 rounded-md mb-3 text-gray-700 bg-white text-sm"
           >
-            <option value="" disabled>Selecione um Mockup</option>
+            <option value="" disabled>
+              Selecione um Mockup
+            </option>
             <option v-for="mockup in listMockups" :key="mockup.name" :value="mockup">
               {{ mockup.name }}
             </option>
@@ -124,13 +127,13 @@
 
             <button
               v-if="camera"
-              @click="showCamera = !showCamera"
               :class="[
                 'px-3 py-1 rounded-md text-sm font-medium transition-all flex',
                 showCamera
                   ? 'bg-purple-100 text-purple-700 hover:bg-purple-200'
                   : 'bg-green-100 text-green-700 hover:bg-green-200'
               ]"
+              @click="showCamera = !showCamera"
             >
               {{ showCamera ? 'Ver Estampas' : 'Usar Câmera' }}
             </button>
