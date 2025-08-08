@@ -1,82 +1,375 @@
 <template>
-  <div class="app">
-    <header class="p-3 bg-dark text-white">
-      <div class="container-fluid">
-        <div class="row justify-content-center">
-          <div class="col-12 col-lg-auto mb-lg-0">
-            <a
-              href="javascript:void(0);"
-              class="w-100 d-flex align-items-center text-white text-center"
-              @click="$router.push('/')"
-            >
-              <img src="@/assets/LOGOUsaTex.png" alt="logo" height="60" class="mx-auto">
-            </a>
-          </div>
+  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <!-- Header melhorado -->
+    <header class="bg-white shadow-md">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-center">
+          <button
+            class="transition-transform hover:scale-105 focus:outline-none"
+            @click="$router.push('/')"
+          >
+            <img src="@/assets/LOGOUsaTex.png" alt="UsaTex Logo" class="h-12 w-auto">
+          </button>
         </div>
       </div>
     </header>
 
-    <div class="container py-3">
-      <div class="row justify-content-center mb-0 align-items-center mb-3">
-        <div class="col-12'col-md-6 col-lg-auto boxIll" :style="'background-image: url('+croppedImage+'); background-size: '+backgroundSize+'% auto'">
-          <div class="card bg-transparent border-0">
-            <div class="row justify-content-center">
-              <div class="col overflow-hidden p-0">
-                <img :src="mockupSelected?.img" class="imgMockup" alt="mockup">
+    <!-- Main content -->
+    <main class="container mx-auto px-4 py-4 max-w-7xl">
+      <!-- Toggle Full Mode -->
+      <div class="flex justify-center mb-4">
+        <button
+          @click="fullMode = !fullMode"
+          :class="[
+            'px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2',
+            fullMode
+              ? 'bg-blue-600 text-white hover:bg-blue-700'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          ]"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path v-if="!fullMode" fill-rule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 11-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 111.414-1.414L15 13.586V12a1 1 0 011-1z" clip-rule="evenodd" />
+            <path v-else fill-rule="evenodd" d="M5 9V5a1 1 0 011-1h4a1 1 0 010 2H8.414l1.293 1.293a1 1 0 01-1.414 1.414L7 7.414V9a1 1 0 01-2 0zm10 0V7.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 6H12a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0zm0 2a1 1 0 012 0v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-1.293-1.293a1 1 0 111.414-1.414L15 12.586V11zm-10 0a1 1 0 01-2 0v1.586l1.293-1.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4z" clip-rule="evenodd" />
+          </svg>
+          {{ fullMode ? 'Modo Compacto' : 'Modo Full' }}
+        </button>
+      </div>
+
+      <!-- Layout dinâmico baseado no modo -->
+      <div v-if="fullMode" class="grid grid-cols-1 xl:grid-cols-4 gap-4">
+        <!-- Sidebar combinada no modo full - Mockups + Estampas/Câmera -->
+        <div class="xl:col-span-1 space-y-4">
+          <!-- Mockups -->
+          <div class="bg-white rounded-lg shadow-md p-4">
+            <h3 class="text-lg font-semibold text-gray-700 mb-3 flex items-center">
+              <svg class="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
+              </svg>
+              Mockups
+            </h3>
+
+            <select
+              v-model="mockupSelected"
+              class="w-full p-2 border border-gray-300 rounded-md mb-3 text-gray-700 bg-white text-sm"
+            >
+              <option value="" disabled>Selecione um Mockup</option>
+              <option v-for="mockup in listMockups" :key="mockup.name" :value="mockup">
+                {{ mockup.name }}
+              </option>
+            </select>
+
+            <div class="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto">
+              <button
+                v-for="(item, id) of listMockups"
+                :key="'mockup-' + id"
+                :class="[
+                  'aspect-square rounded-md overflow-hidden border-2 transition-all',
+                  mockupSelected?.name === item.name
+                    ? 'border-blue-400'
+                    : 'border-gray-200 hover:border-blue-300'
+                ]"
+                @click="mockupSelected = item"
+              >
+                <img
+                  :src="item.img"
+                  :alt="item.name"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                >
+              </button>
+            </div>
+          </div>
+
+          <!-- Estampas / Câmera -->
+          <div class="bg-white rounded-lg shadow-md p-4">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-lg font-semibold text-gray-700 flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2"
+                  :class="showCamera ? 'text-purple-500' : 'text-green-500'"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    v-if="!showCamera"
+                    fill-rule="evenodd"
+                    d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                    clip-rule="evenodd"
+                  />
+                  <path
+                    v-else
+                    fill-rule="evenodd"
+                    d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.414-1.414A1 1 0 0012.586 3H7.414a1 1 0 00-.707.293L5.293 4.707A1 1 0 014.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                {{ showCamera ? 'Câmera' : 'Estampas' }}
+              </h3>
+
+              <!-- Toggle entre Estampas e Câmera (só aparece quando camera=true) -->
+              <button
+                v-if="camera"
+                @click="showCamera = !showCamera"
+                :class="[
+                  'px-3 py-1 rounded-md text-sm font-medium transition-all',
+                  showCamera
+                    ? 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                    : 'bg-green-100 text-green-700 hover:bg-green-200'
+                ]"
+              >
+                {{ showCamera ? 'Ver Estampas' : 'Usar Câmera' }}
+              </button>
+            </div>
+
+            <div v-if="!showCamera">
+              <select
+                v-model="backgroundSelected"
+                class="w-full p-2 border border-gray-300 rounded-md mb-3 text-gray-700 bg-white text-sm"
+                @change="imgCropped(backgroundSelected.texture)"
+              >
+                <option v-for="background in backgroundList" :key="background.name" :value="background">
+                  {{ background.name }}
+                </option>
+              </select>
+
+              <div class="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto">
+                <button
+                  v-for="(item, id) of backgroundList"
+                  :key="'bg-' + id"
+                  :class="[
+                    'aspect-square rounded-md overflow-hidden border-2 transition-all cursor-pointer',
+                    backgroundSelected?.name === item.name
+                      ? 'border-green-400'
+                      : 'border-gray-200 hover:border-green-300'
+                  ]"
+                  @click="imgCropped(item.texture)"
+                >
+                  <img
+                    :src="item.img"
+                    :alt="item.name"
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  >
+                </button>
               </div>
             </div>
+
+            <div v-else>
+              <cropImage
+                :img="ImageSelectCropped"
+                :show-camera="showCamera"
+                :show-camera-button="showCamera"
+                @crop="imgCropped"
+                @size="imgSize"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Preview principal no modo full -->
+        <div class="xl:col-span-3 bg-white rounded-lg shadow-md p-4 flex flex-col">
+          <h3 class="text-lg font-semibold text-gray-700 mb-3 text-center">Preview</h3>
+
+          <div class="flex justify-center mb-4 flex-1">
+            <div
+              class="relative bg-gray-100 rounded-lg overflow-hidden max-w-2xl w-full flex items-center justify-center"
+              id="main-background"
+              :style="'background-image: url('+croppedImage+'); background-size: '+backgroundSize+'% auto; background-position: center;'"
+            >
+              <img
+                v-if="mockupSelected?.img"
+                :src="mockupSelected.img"
+                :alt="mockupSelected.name"
+                class="w-full h-auto object-contain"
+              >
+            </div>
+          </div>
+
+          <!-- Controle de tamanho -->
+          <div class="mx-auto max-w-lg mt-auto">
+            <label class="block text-sm font-medium text-gray-600 mb-2 text-center">
+              Tamanho: {{ backgroundSize }}%
+            </label>
+            <input
+              v-model.number="backgroundSize"
+              type="range"
+              min="0"
+              max="150"
+              step="1"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+              @input="imgSize(backgroundSize)"
+            >
           </div>
         </div>
       </div>
 
-      <div class="row justify-content-center">
-        <div class="col-4">
-          <input
-            id="customRange1"
-            v-model="backgroundSize"
-            type="range"
-            class="form-range w-100 mb-3"
-            step="1"
-            min="0"
-            max="150"
-            @change="imgSize"
+      <!-- Layout modo compacto -->
+      <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- Mockups - Coluna 1 -->
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <h3 class="text-lg font-semibold text-gray-700 mb-3 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
+            </svg>
+            Mockups
+          </h3>
+
+          <select
+            v-model="mockupSelected"
+            class="w-full p-2 border border-gray-300 rounded-md mb-3 text-gray-700 bg-white text-sm"
           >
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-md-6">
-          <select v-model="mockupSelected" class="form-control mb-3">
-            <option value="" disabled>
-              Selecione um Mockup
-            </option>
+            <option value="" disabled>Selecione um Mockup</option>
             <option v-for="mockup in listMockups" :key="mockup.name" :value="mockup">
               {{ mockup.name }}
             </option>
           </select>
-          <div class="boxListImgs row justify-content-center mb-2">
-            <div v-for="(item, id) of listMockups" :key="'thumb'+id" class="boxImg col-auto px-0">
-              <img :src="item.img" :alt="item.name" width="64" @click="mockupSelected = item">
-            </div>
-          </div>
-        </div>
-        <div v-if="!camera" class="col-12 col-md-6">
-          <select v-model="backgroundSelected" class="form-control mb-3" @change="imgCropped(backgroundSelected.texture)">
-            <option v-for="background in backgroundList" :key="background.name" :value="background">
-              {{ background.name }}
-            </option>
-          </select>
 
-          <div class="boxListImgs row justify-content-center">
-            <div v-for="(item, id) of backgroundList" :key="'thumb'+id" class="boxImg col-auto px-0" @click="imgCropped(item.texture)">
-              <img :src="item.img" :alt="item.name" width="64">
-            </div>
+          <div class="grid grid-cols-3 gap-2 max-h-80 overflow-y-auto">
+            <button
+              v-for="(item, id) of listMockups"
+              :key="'mockup-' + id"
+              :class="[
+                'aspect-square rounded-md overflow-hidden border-2 transition-all',
+                mockupSelected?.name === item.name
+                  ? 'border-blue-400'
+                  : 'border-gray-200 hover:border-blue-300'
+              ]"
+              @click="mockupSelected = item"
+            >
+              <img
+                :src="item.img"
+                :alt="item.name"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              >
+            </button>
           </div>
         </div>
-        <div v-else class="col-12 col-md-6">
-          <cropImage :img="ImageSelectCropped" :show-camera="camera" :show-camera-button="camera" @crop="imgCropped" @size="imgSize" />
+
+        <!-- Preview - Coluna 2 -->
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <h3 class="text-lg font-semibold text-gray-700 mb-3 text-center">Preview</h3>
+
+          <div class="flex justify-center mb-4">
+            <div
+              class="relative bg-gray-100 rounded-lg overflow-hidden max-w-sm w-full"
+              id="main-background"
+              :style="'background-image: url('+croppedImage+'); background-size: '+backgroundSize+'% auto; background-position: center;'"
+            >
+              <div class="flex items-center justify-center">
+                <img
+                  v-if="mockupSelected?.img"
+                  :src="mockupSelected.img"
+                  :alt="mockupSelected.name"
+                  class="w-full h-auto object-contain"
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Controle de tamanho -->
+          <div class="mx-auto max-w-xs">
+            <label class="block text-sm font-medium text-gray-600 mb-2 text-center">
+              Tamanho: {{ backgroundSize }}%
+            </label>
+            <input
+              v-model.number="backgroundSize"
+              type="range"
+              min="0"
+              max="150"
+              step="1"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+              @input="imgSize(backgroundSize)"
+            >
+          </div>
+        </div>
+
+        <!-- Estampas / Câmera - Coluna 3 -->
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold text-gray-700 flex items-center">
+              <svg
+                class="w-5 h-5 mr-2"
+                :class="showCamera ? 'text-purple-500' : 'text-green-500'"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  v-if="!showCamera"
+                  fill-rule="evenodd"
+                  d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                  clip-rule="evenodd"
+                />
+                <path
+                  v-else
+                  fill-rule="evenodd"
+                  d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.414-1.414A1 1 0 0012.586 3H7.414a1 1 0 00-.707.293L5.293 4.707A1 1 0 014.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              {{ showCamera ? 'Câmera' : 'Estampas' }}
+            </h3>
+
+            <!-- Toggle entre Estampas e Câmera (só aparece quando camera=true) -->
+            <button
+              v-if="camera"
+              @click="showCamera = !showCamera"
+              :class="[
+                'px-3 py-1 rounded-md text-sm font-medium transition-all',
+                showCamera
+                  ? 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                  : 'bg-green-100 text-green-700 hover:bg-green-200'
+              ]"
+            >
+              {{ showCamera ? 'Ver Estampas' : 'Usar Câmera' }}
+            </button>
+          </div>
+
+          <div v-if="!showCamera">
+            <select
+              v-model="backgroundSelected"
+              class="w-full p-2 border border-gray-300 rounded-md mb-3 text-gray-700 bg-white text-sm"
+              @change="imgCropped(backgroundSelected.texture)"
+            >
+              <option v-for="background in backgroundList" :key="background.name" :value="background">
+                {{ background.name }}
+              </option>
+            </select>
+
+            <div class="grid grid-cols-3 gap-2 max-h-80 overflow-y-auto">
+              <button
+                v-for="(item, id) of backgroundList"
+                :key="'bg-' + id"
+                :class="[
+                  'aspect-square rounded-md overflow-hidden border-2 transition-all cursor-pointer',
+                  backgroundSelected?.name === item.name
+                    ? 'border-green-400'
+                    : 'border-gray-200 hover:border-green-300'
+                ]"
+                @click="imgCropped(item.texture)"
+              >
+                <img
+                  :src="item.img"
+                  :alt="item.name"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                >
+              </button>
+            </div>
+          </div>
+
+          <div v-else>
+            <cropImage
+              :img="ImageSelectCropped"
+              :show-camera="showCamera"
+              :show-camera-button="showCamera"
+              @crop="imgCropped"
+              @size="imgSize"
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   </div>
 </template>
 
@@ -93,6 +386,8 @@ export default {
   },
   data () {
     return {
+      fullMode: false,
+      showCamera: false, // Controla se mostra câmera ou estampas
       holdTime: 0,
       holdTimer: null,
       croppedImage: '',
@@ -109,6 +404,9 @@ export default {
     }
   },
   mounted () {
+    // Inicializar showCamera baseado na prop camera
+    this.showCamera = this.camera
+
     if (listaImages.imagens.length > 0) {
       this.backgroundList = listaImages.imagens.map((item, index) => {
         return { name: 'Modelo ' + (item.replace('.jpg', '')), img: '/assets/thumb/' + item, texture: '/assets/modelos/' + item }
@@ -124,7 +422,11 @@ export default {
       this.backgroundSelected = this.backgroundList.find(item => item.texture === img)
     },
     imgSize (size) {
-      this.backgroundSize = size
+      // Garantir que o valor seja numérico
+      const numericSize = Number(size)
+      if (!isNaN(numericSize)) {
+        this.backgroundSize = numericSize
+      }
     },
     imgCamera (img) {
       this.backgroundList.push({ name: 'Foto ' + (this.backgroundList.length + 1), img })
@@ -134,26 +436,85 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.imgMockup{
+<style>
+/* Slider customizado */
+.slider {
+  background: #e5e7eb;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
 
-  max-height:516px;
-  width: 100%;
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.boxIll{
-  max-height:calc(100vh - 150px);
-  max-width: 100%;
+
+.slider::-webkit-slider-thumb:hover {
+  background: #2563eb;
 }
-button svg{
-  width:20px;
+
+.slider::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.boxListImgs{
-  height:300px;
-  overflow-y:scroll;
-  .boxImg{
-    &:hover{
-      opacity:0.7;
-    }
-  }
+
+/* Melhorias para o background e mockup */
+#main-background {
+  background-color: transparent;
+}
+
+/* Scrollbar customizado */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e0 #f7fafc;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f7fafc;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 2px;
+}
+
+/* Transitions */
+.transition-all {
+  transition: all 0.2s ease;
+}
+
+/* Aspect ratio utility */
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+/* Background utilities */
+.bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+.from-gray-50 {
+  --tw-gradient-from: #f9fafb;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 250, 251, 0));
+}
+
+.to-gray-100 {
+  --tw-gradient-to: #f3f4f6;
 }
 </style>

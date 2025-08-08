@@ -1,0 +1,5 @@
+android/
+build/
+dist/
+node_modules/
+.nuxt/
