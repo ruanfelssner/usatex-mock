@@ -16,238 +16,9 @@
 
     <!-- Main content -->
     <main class="container mx-auto px-4 py-4 max-w-7xl">
-      <!-- Toggle Full Mode -->
-      <div class="flex justify-center mb-4">
-        <button
-          @click="fullMode = !fullMode"
-          :class="[
-            'px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2',
-            fullMode
-              ? 'bg-blue-600 text-white hover:bg-blue-700'
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-          ]"
-        >
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path v-if="!fullMode" fill-rule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 11-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 111.414-1.414L15 13.586V12a1 1 0 011-1z" clip-rule="evenodd" />
-            <path v-else fill-rule="evenodd" d="M5 9V5a1 1 0 011-1h4a1 1 0 010 2H8.414l1.293 1.293a1 1 0 01-1.414 1.414L7 7.414V9a1 1 0 01-2 0zm10 0V7.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 6H12a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0zm0 2a1 1 0 012 0v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-1.293-1.293a1 1 0 111.414-1.414L15 12.586V11zm-10 0a1 1 0 01-2 0v1.586l1.293-1.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4z" clip-rule="evenodd" />
-          </svg>
-          {{ fullMode ? 'Modo Compacto' : 'Modo Full' }}
-        </button>
-      </div>
 
-      <!-- Layout dinâmico baseado no modo -->
-      <div v-if="fullMode" class="grid grid-cols-1 xl:grid-cols-4 gap-4">
-        <!-- Sidebar combinada no modo full - Mockups + Estampas/Câmera -->
-        <div class="xl:col-span-1 space-y-4">
-          <!-- Mockups -->
-          <div class="bg-white rounded-lg shadow-md p-4">
-            <h3 class="text-lg font-semibold text-gray-700 mb-3 flex items-center">
-              <svg class="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
-              </svg>
-              Mockups
-            </h3>
-
-            <select
-              v-model="mockupSelected"
-              class="w-full p-2 border border-gray-300 rounded-md mb-3 text-gray-700 bg-white text-sm"
-            >
-              <option value="" disabled>Selecione um Mockup</option>
-              <option v-for="mockup in listMockups" :key="mockup.name" :value="mockup">
-                {{ mockup.name }}
-              </option>
-            </select>
-
-            <div class="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto">
-              <button
-                v-for="(item, id) of listMockups"
-                :key="'mockup-' + id"
-                :class="[
-                  'aspect-square rounded-md overflow-hidden border-2 transition-all',
-                  mockupSelected?.name === item.name
-                    ? 'border-blue-400'
-                    : 'border-gray-200 hover:border-blue-300'
-                ]"
-                @click="mockupSelected = item"
-              >
-                <img
-                  :src="item.img"
-                  :alt="item.name"
-                  class="w-full h-full object-cover"
-                  loading="lazy"
-                >
-              </button>
-            </div>
-          </div>
-
-          <!-- Estampas / Câmera -->
-          <div class="bg-white rounded-lg shadow-md p-4">
-            <div class="flex items-center justify-between mb-3">
-              <h3 class="text-lg font-semibold text-gray-700 flex items-center">
-                <svg
-                  class="w-5 h-5 mr-2"
-                  :class="showCamera ? 'text-purple-500' : 'text-green-500'"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    v-if="!showCamera"
-                    fill-rule="evenodd"
-                    d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                    clip-rule="evenodd"
-                  />
-                  <path
-                    v-else
-                    fill-rule="evenodd"
-                    d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.414-1.414A1 1 0 0012.586 3H7.414a1 1 0 00-.707.293L5.293 4.707A1 1 0 014.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                {{ showCamera ? 'Câmera' : 'Estampas' }}
-              </h3>
-
-              <!-- Toggle entre Estampas e Câmera (só aparece quando camera=true) -->
-              <button
-                v-if="camera"
-                @click="showCamera = !showCamera"
-                :class="[
-                  'px-3 py-1 rounded-md text-sm font-medium transition-all',
-                  showCamera
-                    ? 'bg-purple-100 text-purple-700 hover:bg-purple-200'
-                    : 'bg-green-100 text-green-700 hover:bg-green-200'
-                ]"
-              >
-                {{ showCamera ? 'Ver Estampas' : 'Usar Câmera' }}
-              </button>
-            </div>
-
-            <div v-if="!showCamera">
-              <select
-                v-model="backgroundSelected"
-                class="w-full p-2 border border-gray-300 rounded-md mb-3 text-gray-700 bg-white text-sm"
-                @change="imgCropped(backgroundSelected.texture)"
-              >
-                <option v-for="background in backgroundList" :key="background.name" :value="background">
-                  {{ background.name }}
-                </option>
-              </select>
-
-              <div class="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto">
-                <button
-                  v-for="(item, id) of backgroundList"
-                  :key="'bg-' + id"
-                  :class="[
-                    'aspect-square rounded-md overflow-hidden border-2 transition-all cursor-pointer',
-                    backgroundSelected?.name === item.name
-                      ? 'border-green-400'
-                      : 'border-gray-200 hover:border-green-300'
-                  ]"
-                  @click="imgCropped(item.texture)"
-                >
-                  <img
-                    :src="item.img"
-                    :alt="item.name"
-                    class="w-full h-full object-cover"
-                    loading="lazy"
-                  >
-                </button>
-              </div>
-            </div>
-
-            <div v-else>
-              <cropImage
-                :img="ImageSelectCropped"
-                :show-camera="showCamera"
-                :show-camera-button="showCamera"
-                @crop="imgCropped"
-                @size="imgSize"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Preview principal no modo full -->
-        <div class="xl:col-span-3 bg-white rounded-lg shadow-md p-4 flex flex-col">
-          <h3 class="text-lg font-semibold text-gray-700 mb-3 text-center">Preview</h3>
-
-          <div class="flex justify-center mb-4">
-            <div
-              class="relative bg-gray-100 rounded-lg overflow-hidden max-w-2xl w-full flex items-center justify-center"
-              id="main-background"
-              :style="'background-image: url('+croppedImage+'); background-size: '+backgroundSize+'% auto; background-position: center;'"
-            >
-              <img
-                v-if="mockupSelected?.img"
-                :src="mockupSelected.img"
-                :alt="mockupSelected.name"
-                class="w-full h-auto object-contain"
-              >
-            </div>
-          </div>
-
-          <!-- Controle de tamanho -->
-          <div class="mx-auto max-w-lg">
-            <label class="block text-sm font-medium text-gray-600 mb-2 text-center">
-              Tamanho: {{ backgroundSize }}%
-            </label>
-            <input
-              v-model.number="backgroundSize"
-              type="range"
-              min="0"
-              max="150"
-              step="1"
-              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-              @input="imgSize(backgroundSize)"
-            >
-          </div>
-        </div>
-      </div>
-
-      <!-- Layout modo compacto -->
-      <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <!-- Mockups - Coluna 1 -->
-        <div class="bg-white rounded-lg shadow-md p-4">
-          <h3 class="text-lg font-semibold text-gray-700 mb-3 flex items-center">
-            <svg class="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
-            </svg>
-            Mockups
-          </h3>
-
-          <select
-            v-model="mockupSelected"
-            class="w-full p-2 border border-gray-300 rounded-md mb-3 text-gray-700 bg-white text-sm"
-          >
-            <option value="" disabled>Selecione um Mockup</option>
-            <option v-for="mockup in listMockups" :key="mockup.name" :value="mockup">
-              {{ mockup.name }}
-            </option>
-          </select>
-
-          <div class="grid grid-cols-3 gap-2 max-h-80 overflow-y-auto">
-            <button
-              v-for="(item, id) of listMockups"
-              :key="'mockup-' + id"
-              :class="[
-                'aspect-square rounded-md overflow-hidden border-2 transition-all',
-                mockupSelected?.name === item.name
-                  ? 'border-blue-400'
-                  : 'border-gray-200 hover:border-blue-300'
-              ]"
-              @click="mockupSelected = item"
-            >
-              <img
-                :src="item.img"
-                :alt="item.name"
-                class="w-full h-full object-cover"
-                loading="lazy"
-              >
-            </button>
-          </div>
-        </div>
-
-        <!-- Preview - Coluna 2 -->
-        <div class="bg-white rounded-lg shadow-md p-4">
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-white rounded-lg shadow-md p-4 col-span-2">
           <h3 class="text-lg font-semibold text-gray-700 mb-3 text-center">Preview</h3>
 
           <div class="flex justify-center mb-4">
@@ -284,9 +55,50 @@
           </div>
         </div>
 
+        <!-- Mockups - Coluna 1 -->
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <h3 class="text-lg font-semibold text-gray-700 mb-3 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
+            </svg>
+            Mockups
+          </h3>
+
+          <select
+            v-model="mockupSelected"
+            class="w-full p-2 border border-gray-300 rounded-md mb-3 text-gray-700 bg-white text-sm"
+          >
+            <option value="" disabled>Selecione um Mockup</option>
+            <option v-for="mockup in listMockups" :key="mockup.name" :value="mockup">
+              {{ mockup.name }}
+            </option>
+          </select>
+
+          <div class="grid grid-cols-2 gap-2 max-h-80 min-h-48 overflow-y-auto">
+            <button
+              v-for="(item, id) of listMockups"
+              :key="'mockup-' + id"
+              :class="[
+                'aspect-square rounded-md overflow-hidden border-2 transition-all',
+                mockupSelected?.name === item.name
+                  ? 'border-blue-400'
+                  : 'border-gray-200 hover:border-blue-300'
+              ]"
+              @click="mockupSelected = item"
+            >
+              <img
+                :src="item.img"
+                :alt="item.name"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              >
+            </button>
+          </div>
+        </div>
+
         <!-- Estampas / Câmera - Coluna 3 -->
         <div class="bg-white rounded-lg shadow-md p-4">
-          <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center justify-between mb-3 flex-wrap">
             <h3 class="text-lg font-semibold text-gray-700 flex items-center">
               <svg
                 class="w-5 h-5 mr-2"
@@ -310,12 +122,11 @@
               {{ showCamera ? 'Câmera' : 'Estampas' }}
             </h3>
 
-            <!-- Toggle entre Estampas e Câmera (só aparece quando camera=true) -->
             <button
               v-if="camera"
               @click="showCamera = !showCamera"
               :class="[
-                'px-3 py-1 rounded-md text-sm font-medium transition-all',
+                'px-3 py-1 rounded-md text-sm font-medium transition-all flex',
                 showCamera
                   ? 'bg-purple-100 text-purple-700 hover:bg-purple-200'
                   : 'bg-green-100 text-green-700 hover:bg-green-200'
@@ -336,7 +147,7 @@
               </option>
             </select>
 
-            <div class="grid grid-cols-3 gap-2 max-h-80 overflow-y-auto">
+            <div class="grid grid-cols-2 gap-2 max-h-80 min-h-48 overflow-y-auto">
               <button
                 v-for="(item, id) of backgroundList"
                 :key="'bg-' + id"
@@ -386,7 +197,6 @@ export default {
   },
   data () {
     return {
-      fullMode: false,
       showCamera: false, // Controla se mostra câmera ou estampas
       holdTime: 0,
       holdTimer: null,
